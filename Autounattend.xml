@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <servicing></servicing>
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>ru-RU</UILanguage>
+                <WillShowUI>Never</WillShowUI>
+            </SetupUILanguage>
+            <InputLocale>ru-RU</InputLocale>
+            <UILanguage>ru-RU</UILanguage>
+            <UILanguageFallback>ru-RU</UILanguageFallback>
+            <UserLocale>ru-RU</UserLocale>
+            <SystemLocale>ru-RU</SystemLocale>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ImageInstall>
+                <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows 10 Pro</Value>
+                        </MetaData>
+                    </InstallFrom>
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>2</PartitionID>
+                    </InstallTo>
+                </OSImage>
+            </ImageInstall>
+            <UserData>
+                <AcceptEula>true</AcceptEula>
+            </UserData>
+            <DiskConfiguration>
+                <WillShowUI>Never</WillShowUI>
+                <Disk wcm:action="add">
+                    <CreatePartitions>
+                        <CreatePartition wcm:action="add">
+                            <Type>Primary</Type>
+                            <Order>1</Order>
+                            <Extend>false</Extend>
+                            <Size>350</Size>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>2</Order>
+                            <Extend>true</Extend>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                    </CreatePartitions>
+                    <ModifyPartitions>
+                        <ModifyPartition wcm:action="add">
+                            <Active>true</Active>
+                            <Format>NTFS</Format>
+                            <Order>1</Order>
+                            <Label>boot</Label>
+                            <PartitionID>1</PartitionID>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>2</Order>
+                            <Format>NTFS</Format>
+                            <Label>MGUTM</Label>
+                            <Letter>C</Letter>
+                            <PartitionID>2</PartitionID>
+                        </ModifyPartition>
+                    </ModifyPartitions>
+                    <WillWipeDisk>true</WillWipeDisk>
+                    <DiskID>0</DiskID>
+                </Disk>
+            </DiskConfiguration>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>ru-RU</InputLocale>
+            <SystemLocale>ru-RU</SystemLocale>
+            <UILanguage>ru-RU</UILanguage>
+            <UILanguageFallback>en-US</UILanguageFallback>
+            <UserLocale>ru-RU</UserLocale>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OOBE>
+                <VMModeOptimizations>
+                    <SkipNotifyUILanguageChange>true</SkipNotifyUILanguageChange>
+                </VMModeOptimizations>
+                <HideEULAPage>true</HideEULAPage>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <ProtectYourPC>3</ProtectYourPC>
+            </OOBE>
+            <UserAccounts>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>Student</Value>
+                            <PlainText>true</PlainText>
+                        </Password>
+                        <Name>Student</Name>
+                        <Group>Administrators; Power Users</Group>
+                        <DisplayName>Student</DisplayName>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <AutoLogon>
+                <Password>
+                    <Value>Student</Value>
+                    <PlainText>true</PlainText>
+                </Password>
+                <Username>Student</Username>
+                <Enabled>true</Enabled>
+            </AutoLogon>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c A:\chocolatey.bat</CommandLine>
+                    <Description>Install chocolatey</Description>
+                    <Order>1</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <CommandLine>cmd.exe /c A:\install_pm5.bat</CommandLine>
+                    <Description>Install Software for Exam</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <CommandLine>cmd.exe /c A:\bootstrap.bat</CommandLine>
+                    <Description>Download bootstrap</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>4</Order>
+                    <CommandLine>cmd.exe /C powershell -ExecutionPolicy unrestricted -File enable-winrm.ps1</CommandLine>
+                    <Description>Start WinRM</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>ru-RU;en-US</InputLocale>
+            <SystemLocale>ru-RU</SystemLocale>
+            <UILanguage>ru-RU</UILanguage>
+            <UILanguageFallback>en-US</UILanguageFallback>
+            <UserLocale>ru-RU</UserLocale>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim://desktop-d8vpoh7/users/rsc/yandexdisk/install.wim#Windows 10 Pro" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
