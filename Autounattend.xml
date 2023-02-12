@@ -133,7 +133,7 @@
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
-                    <CommandLine>cmd.exe /C powershell -ExecutionPolicy unrestricted -File enable-winrm.ps1</CommandLine>
+                    <CommandLine>cmd.exe /C powershell -ExecutionPolicy unrestricted -File a:\enable-winrm.ps1</CommandLine>
                     <Description>Start WinRM</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>

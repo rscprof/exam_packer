@@ -19,19 +19,21 @@
 + flask-sqlalchemy (pip)
 + jinja2 (pip)
 + flask-mysql (pip)
-- secrets (python)
++ secrets (pip)
 + https://github.com/twbs/bootstrap/releases/download/v4.0.0/bootstrap-4.0.0-dist.zip
-
++ wordpress в кеш laragon
++ vuejs
++ vuejs-router
++ reactjs
 
 Для развёртывания проекта необходимо установить следующее программное обеспечение:
 - packer
-- vagrant
 - VirtualBox
 Установку следует проводить в Linux по причине того, что под Windows установочные файлы нельзя скачать с сайта 
 разработчиков (packer, vagrant).
 
 Инструкция по установке:
 - скачайте ISO-образ Windows 10
-- запишите его в каталог ./ms-windows/iso
-- в build.sh исправьте имя образа
-- запустите build.sh
+- запишите его в каталог ./image
+- запустите packer init .
+- запустите packer build .
