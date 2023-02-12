@@ -11,7 +11,7 @@
 + express (npm)
 + flask (pip)
 + gimp 
-+ impress
++ LibreOffice
 + postman
 + pycharm (community edition)
 + prettier (npm)
@@ -25,6 +25,9 @@
 + vuejs
 + vuejs-router
 + reactjs
++ flask-mashmallow (pip)
++ flask-login (pip)
++ Werkzeug (pip)
 
 Для развёртывания проекта необходимо установить следующее программное обеспечение:
 - packer

@@ -72,19 +72,4 @@ source "virtualbox-iso" "isp-pm05-exam" {
 build {
   sources = ["source.virtualbox-iso.isp-pm05-exam"]
 
-#  provisioner "windows-shell" {
-#    execute_command = "{{ .Vars }} cmd /c \"{{ .Path }}\""
-#    remote_path     = "/tmp/script.bat"
-#    scripts         = ["./scripts/enable-rdp.bat"]
-#  }
-
-#  provisioner "powershell" {
-#    scripts = ["./scripts/vm-guest-tools.ps1", "./scripts/debloat-windows.ps1"]
-#  }
-
-#  post-processor "vagrant" {
-#    keep_input_artifact  = false
-#    output               = "windows_10_{{ .Provider }}.box"
-#    vagrantfile_template = "vagrantfile-windows_10.template"
-#  }
 }
