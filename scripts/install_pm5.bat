@@ -9,7 +9,7 @@ choco install /y libreoffice-fresh
 choco install /y postman
 choco install /y pycharm-community
 choco install /y openssl
-call c:\laragon\bin\nodejs\node-v18\npm install -g express prettier jslint vue@next vue-router@4 react 
+call c:\laragon\bin\nodejs\node-v18\npm install -g express prettier eslint vue@next vue-router@4 react @reduxjs/toolkit react-redux react-router-dom formik react-content-loader
 c:\laragon\bin\python\python-3.10\python -m pip install flask flask-sqlalchemy jinja2 flask-mysql pyOpenSSL secrets flask-marshmallow flask-login Werkzeug
 mkdir c:\laragon\tmp\cached
 c:\laragon\bin\git\mingw64\bin\curl https://wordpress.org/latest.tar.gz --output C:\laragon\tmp\cached\wordpress.latest.tar.gz
