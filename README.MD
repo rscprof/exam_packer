@@ -15,7 +15,12 @@
 + postman
 + pycharm (community edition)
 + prettier (npm)
-+ jslint (npm)
++ eslint (npm)
++ redux/toolkit
++ react-redux
++ react-router-dom
++ formik
++ react-content-loader
 + flask-sqlalchemy (pip)
 + jinja2 (pip)
 + flask-mysql (pip)
@@ -33,7 +38,7 @@
 - packer
 - VirtualBox
 Установку следует проводить в Linux по причине того, что под Windows установочные файлы нельзя скачать с сайта 
-разработчиков (packer, vagrant). Кроме того, это предполагается скриптами
+разработчиков (packer).
 
 Инструкция по установке:
 - скачайте ISO-образ Windows 10
