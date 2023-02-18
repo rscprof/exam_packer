@@ -1,2 +1,2 @@
 #!/bin/bash
-packer build -only='packages_install.virtualbox-ovf.prog-installs-packages' .
+packer build --force -on-error=ask -only='packages_install.virtualbox-ovf.prog-installs-packages' .

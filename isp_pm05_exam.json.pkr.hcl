@@ -102,6 +102,8 @@ source "virtualbox-ovf" "prog-installs-pm05" {
   source_path = "./output_windows_installed/windows_installed.ovf"
   guest_additions_mode = "disable"
   http_directory="./downloads"
+  http_port_min=8100
+  http_port_max=8100
 }
 
 source "virtualbox-ovf" "prog-installs-packages" {
@@ -114,7 +116,7 @@ source "virtualbox-ovf" "prog-installs-packages" {
   winrm_username   = "${var.user_name}"
   winrm_password   = "${var.user_password}"
   winrm_timeout    = "${var.winrm_timeout}"
-  headless         = "${var.headless}"
+  headless         = "true"
   output_filename  = "packages_installed"
   source_path = "./output_programs_installed/programs_installed.ovf"
   guest_additions_mode = "disable"
@@ -134,13 +136,16 @@ build {
   sources = ["source.virtualbox-ovf.prog-installs-pm05"]
   
   provisioner "shell-local" {
-    inline = ["wget -N https://github.com/leokhoa/laragon/releases/download/6.0.0/laragon-wamp.exe -O ./downloads/laragon-wamp.exe"]
+    inline = ["if [ ! -f \"./downloads/laragon-wamp.exe\" ] ; then wget -nc https://github.com/leokhoa/laragon/releases/download/6.0.0/laragon-wamp.exe -O ./downloads/laragon-wamp.exe ; fi "]
   }
 
+  provisioner "powershell" {
+#    debug_mode=1
+    inline = ["(New-Object System.Net.WebClient).DownloadFile(\"http://\"+($ENV:PACKER_HTTP_ADDR)+\"/laragon-wamp.exe\", 'C:\\Windows\\Temp\\laragon-wamp.exe')"]
+  }
+  
   provisioner "windows-shell" {
-    inline = ["powershell -Command \"(New-Object System.Net.WebClient).DownloadFile('http://{{ .HTTPIP }}:{{ .HTTPPort }}/laragon-wamp.exe', 'C:\\Windows\\Temp\\laragon-wamp.exe')\" <NUL",
-    "C:\\Windows\\temp\\laragon-wamp.exe /SILENT"
-    ]
+    inline = ["C:\\Windows\\temp\\laragon-wamp.exe /SILENT"]
   }
 
   provisioner "windows-shell" {
@@ -168,7 +173,7 @@ build {
   }
 
   provisioner "windows-shell" {
-    inline = ["choco install /y 7-Zip"]
+    inline = ["choco install /y 7zip"]
   }
 
 }
@@ -178,6 +183,21 @@ build {
   #  vm_name="${var.vm_name}"
   sources = ["source.virtualbox-ovf.prog-installs-packages"]
 
+  provisioner "windows-shell" {
+    inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm install -g npm@latest"]
+  }
+  
+  provisioner "windows-shell" {
+    inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm update -g"]
+  }
+  
+  provisioner "windows-shell" {
+    inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm uninstall -g sourcemap-codec"]
+  }
+  
+  provisioner "windows-shell" {
+    inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm install -g @jridgewell/sourcemap-codec"]
+  }
 
   provisioner "windows-shell" {
     inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm install -g express prettier eslint vue@next vue-router@4 react @reduxjs/toolkit react-redux react-router-dom formik react-content-loader"]
@@ -189,25 +209,30 @@ build {
 
 
   provisioner "windows-shell" {
-    inline = ["c:\\laragon\\bin\\python\\python-3.10\\python -m pip install flask flask-sqlalchemy jinja2 flask-mysql pyOpenSSL secrets flask-marshmallow flask-login Werkzeug"]
+    inline = ["c:\\laragon\\bin\\python\\python-3.10\\python -m pip install flask flask-sqlalchemy jinja2 flask-mysql pyOpenSSL"]
+  }
+
+  provisioner "windows-shell" {
+    inline = ["c:\\laragon\\bin\\python\\python-3.10\\python -m pip install python-secrets flask-marshmallow flask-login Werkzeug"]
   }
 
   provisioner "shell-local" {
-    inline = ["wget -N https://wordpress.org/latest.tar.gz -O ./downloads/latest.tar.gz"]
+    inline = ["if [ ! -f \"./downloads/latest.tar.gz\" ] ; then wget -nc https://wordpress.org/latest.tar.gz -O ./downloads/latest.tar.gz ; fi "]
   }
 
   provisioner "windows-shell" {
     inline = ["mkdir c:\\laragon\\tmp\\cached",
-    "c:\\laragon\\bin\\git\\mingw64\\bin\\curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/latest.tar.gz --output C:\\laragon\\tmp\\cached\\wordpress.latest.tar.gz"]
+    "c:\\laragon\\bin\\git\\mingw64\\bin\\curl http://%PACKER_HTTP_ADDR%/latest.tar.gz --output C:\\laragon\\tmp\\cached\\wordpress.latest.tar.gz"]
 
   }
   
   provisioner "shell-local" {
-    inline = ["wget -N https://github.com/twbs/bootstrap/releases/download/v4.0.0/bootstrap-4.0.0-dist.zip -O ./downloads/bootstrap.zip"]
+    inline = ["if [ ! -f \"./downloads/bootstrap.zip\" ] ; then wget -nc https://github.com/twbs/bootstrap/releases/download/v4.0.0/bootstrap-4.0.0-dist.zip -O ./downloads/bootstrap.zip ; fi "]
   }
 
   provisioner "windows-shell" {
-    inline = ["c:\\laragon\\bin\\git\\mingw64\\bin\\curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/bootstrap.zip --output C:\\User\\Student\\Desktop\\bootstrap.zip"]
+    inline = ["c:\\laragon\\bin\\git\\mingw64\\bin\\curl http://%PACKER_HTTP_ADDR%/bootstrap.zip --output C:\\Users\\Student\\Desktop\\bootstrap.zip"]
+    
   }
 
 }
