@@ -2,4 +2,4 @@ output_programs_installed
 output_windows_installed
 output_packages_installed
 *.iso
-
+downloads/*
