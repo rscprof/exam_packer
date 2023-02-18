@@ -120,18 +120,6 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <CommandLine>cmd.exe /c A:\install_pm5.bat</CommandLine>
-                    <Description>Install Software for Exam</Description>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
-                    <CommandLine>cmd.exe /c A:\bootstrap.bat</CommandLine>
-                    <Description>Download bootstrap</Description>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <CommandLine>cmd.exe /C powershell -ExecutionPolicy unrestricted -File a:\enable-winrm.ps1</CommandLine>
                     <Description>Start WinRM</Description>
