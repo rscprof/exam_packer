@@ -200,7 +200,7 @@ build {
   }
 
   provisioner "windows-shell" {
-    inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm install -g express prettier eslint vue@next vue-router@4 react @reduxjs/toolkit react-redux react-router-dom formik react-content-loader"]
+    inline = ["c:\\laragon\\bin\\nodejs\\node-v18\\npm install -g express prettier eslint vue@next vue-router@4 react @reduxjs/toolkit react-redux react-router-dom formik react-content-loader mysql cors"]
   }
 
   provisioner "windows-shell" {
