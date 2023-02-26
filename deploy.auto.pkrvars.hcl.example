@@ -1,0 +1,5 @@
+deploy_to_pm_05="yandex:/test/"
+deploy_to_pm_08="yandex:/test/"
+iso_checksum="sha256:f85c19a39c09b53d50386679fadcc283ccf31ad4b8d6aacde2e7237e91d59312"
+
+

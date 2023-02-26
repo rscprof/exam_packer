@@ -1,6 +1,6 @@
 #!/bin/bash
 rm -f downloads/laragon*
-packer build -on-error=ask -only='win_install.virtualbox-iso.windows' . 
+packer build --force -on-error=ask -only='win_install.virtualbox-iso.windows' . 
 if [ "$?" -eq 0 ]
 then
 sh ./build_from_second_part.sh

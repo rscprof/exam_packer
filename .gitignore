@@ -1,5 +1,5 @@
-output_programs_installed
-output_windows_installed
-output-prog-installs-packages
+output*
 *.iso
 downloads/*
+*.auto.pkrvars.hcl
+
